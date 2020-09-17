@@ -86,6 +86,8 @@ private extension FontTextStyleParser {
         let maxPointSize = fontTextStyle[ConfigurationKey.maximumPointSize.rawValue] as? Float
         let minPointSize = fontTextStyle[ConfigurationKey.minimumPointSize.rawValue] as? Float
         let pointSize = fontTextStyle[ConfigurationKey.pointSize.rawValue] as? Float
+        let lineSpacing = fontTextStyle[ConfigurationKey.lineSpacing.rawValue] as? Float
+        
         var textColor: UIColor?
         if let textColorName = fontTextStyle[ConfigurationKey.textColor.rawValue] as? String {
             textColor = colorEntries[textColorName]?.uiColor ?? TypographyColor(string: textColorName)?.uiColor
@@ -123,7 +125,7 @@ private extension FontTextStyleParser {
                           maximumPointSize: maxPointSize, minimumPointSize: minPointSize, scalingMode: scalingMode,
                           textColor: textColor, disabledTextColor: disabledTextColor,
                           highlightedTextColor: highlightedTextColor, selectedTextColor: selectedTextColor,
-                          tintColor: tintColor, backgroundColor: backgroundColor)
+                          tintColor: tintColor, backgroundColor: backgroundColor, lineSpacing: lineSpacing)
     }
     
     /// Extends the original Typography style with another style, replacing properties of the
@@ -140,12 +142,13 @@ private extension FontTextStyleParser {
         let newSelectedColor = modified.selectedTextColor ?? original.selectedTextColor
         let newTintColor = modified.tintColor ?? original.tintColor
         let newBackgroundColor = modified.backgroundColor ?? original.backgroundColor
+        let newLineSpacing = modified.lineSpacing ?? original.lineSpacing
         let newScalingMode = modified.scalingMode ?? original.scalingMode
         return Typography(name: modified.name, fontName: newFace, fontSize: newSize, letterCase: newCase,
                           maximumPointSize: newMaxSize, minimumPointSize: newMinSize,
                           scalingMode: newScalingMode, textColor: newColor, disabledTextColor: newDisabledColor,
                           highlightedTextColor: newHighlightedColor, selectedTextColor: newSelectedColor,
-                          tintColor: newTintColor, backgroundColor: newBackgroundColor)
+                          tintColor: newTintColor, backgroundColor: newBackgroundColor, lineSpacing: newLineSpacing)
     }
     
 }

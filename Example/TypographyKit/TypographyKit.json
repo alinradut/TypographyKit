@@ -30,7 +30,6 @@
 			
 			"letter-case": "regular",
             "text-color": "green",
-            "background-color": "red"
 		},
 		"paragraph": {
 			"font-name": "Avenir-Medium",
@@ -42,7 +41,8 @@
             "highlighted-text-color": "#FF0000",
             "selected-text-color": "#00FF00",
             "letter-case": "regular",
-            "background-color": "red"
+            "background-color": "red",
+            "line-spacing" : 10
 		},
         "example": {
             "font-name": "System-Bold",

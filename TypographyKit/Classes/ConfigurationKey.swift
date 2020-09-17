@@ -20,4 +20,5 @@ enum ConfigurationKey: String {
     case selectedTextColor = "selected-text-color"
     case tintColor = "tint-color"
     case backgroundColor = "background-color"
+    case lineSpacing = "line-spacing"
 }

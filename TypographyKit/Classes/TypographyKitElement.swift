@@ -113,11 +113,13 @@ extension TypographyKitElement {
     func update(attributedString: NSMutableAttributedString, with attrs: [NSAttributedString.Key: Any],
                 in range: NSRange, and typography: Typography) {
         update(attributedString: attributedString, with: attrs, in: range,
-               typographyFont: typography.font(), typographyTextColor: typography.textColor)
+               typographyFont: typography.font(), typographyTextColor: typography.textColor,
+               typograhyLineSpacing: typography.lineSpacing)
     }
     
     func update(attributedString: NSMutableAttributedString, with attrs: [NSAttributedString.Key: Any],
-                in range: NSRange, typographyFont: UIFont?, typographyTextColor: UIColor?) {
+                in range: NSRange, typographyFont: UIFont?, typographyTextColor: UIColor?,
+                typograhyLineSpacing: Float?) {
         let fontAttribute = attrs[.font] as? UIFont
         if let font = fontAttribute ?? typographyFont {
             let fontSize = typographyFont?.pointSize ?? font.pointSize
@@ -130,6 +132,12 @@ extension TypographyKitElement {
         if let textColor = textColorAttribute ?? typographyTextColor {
             attributedString.removeAttribute(.foregroundColor, range: range)
             attributedString.addAttribute(.foregroundColor, value: textColor, range: range)
+        }
+        let paragraphStyleAttribute = attrs[.paragraphStyle] as? NSParagraphStyle
+        if let lineSpacing = typograhyLineSpacing {
+            let style = (paragraphStyleAttribute?.mutableCopy() as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+            style.lineSpacing = CGFloat(lineSpacing)
+            attributedString.addAttribute(.paragraphStyle, value: style, range: range)
         }
     }
     

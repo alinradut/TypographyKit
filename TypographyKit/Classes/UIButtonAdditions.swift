@@ -111,7 +111,8 @@ extension UIButton {
     
     public func attributedText(_ text: NSAttributedString?, style: UIFont.TextStyle,
                                letterCase: LetterCase? = nil, textColor: UIColor? = nil,
-                               replacingDefaultTextColor: Bool = false, replacingDefaultBackgroundColor: Bool = false) {
+                               replacingDefaultTextColor: Bool = false, replacingDefaultBackgroundColor: Bool = false,
+                               replacingLineSpacing: Float? = nil) {
         // Update text.
         if let text = text {
             self.setAttributedTitle(text, for: .normal)
@@ -134,32 +135,38 @@ extension UIButton {
                        replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: typography.textColor)
         if let textColor = typography.disabledTextColor {
             attributedText(attrString, for: .disabled,
-                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor)
+                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor,
+                           replacingLineSpacing: replacingLineSpacing)
         }
         if let textColor = typography.highlightedTextColor {
             attributedText(attrString, for: .highlighted,
-                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor)
+                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor,
+                           replacingLineSpacing: replacingLineSpacing)
         }
         if let textColor = typography.selectedTextColor {
             attributedText(attrString, for: .selected,
-                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor)
+                           replacingDefaultTextColor: replacingDefaultTextColor, replacingTextColor: textColor,
+                           replacingLineSpacing: replacingLineSpacing)
         }
         if let backgroundColor = typography.backgroundColor {
             attributedText(attrString, for: .normal,
                            replacingDefaultBackgroundColor: replacingDefaultBackgroundColor,
-                           replacingBackgroundColor: backgroundColor)
+                           replacingBackgroundColor: backgroundColor,
+                           replacingLineSpacing: replacingLineSpacing)
         }
     }
     
     private func attributedText(_ attrString: NSAttributedString, for state: UIControl.State,
                                 replacingDefaultTextColor: Bool = false, replacingTextColor: UIColor? = nil,
                                 replacingDefaultBackgroundColor: Bool = false,
-                                replacingBackgroundColor: UIColor? = nil) {
+                                replacingBackgroundColor: UIColor? = nil,
+                                replacingLineSpacing: Float? = nil) {
         let mutableString = NSMutableAttributedString(attributedString: attrString)
         let textRange = NSRange(location: 0, length: attrString.string.count)
         mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
             update(attributedString: mutableString, with: value, in: range,
-                   typographyFont: typography.font(), typographyTextColor: replacingTextColor)
+                   typographyFont: typography.font(), typographyTextColor: replacingTextColor,
+                   typograhyLineSpacing: replacingLineSpacing)
         })
 
         if replacingDefaultTextColor {
