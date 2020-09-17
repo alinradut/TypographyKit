@@ -86,7 +86,6 @@ private extension FontTextStyleParser {
         let maxPointSize = fontTextStyle[ConfigurationKey.maximumPointSize.rawValue] as? Float
         let minPointSize = fontTextStyle[ConfigurationKey.minimumPointSize.rawValue] as? Float
         let pointSize = fontTextStyle[ConfigurationKey.pointSize.rawValue] as? Float
-        let lineSpacing = fontTextStyle[ConfigurationKey.lineSpacing.rawValue] as? Float
         
         var textColor: UIColor?
         if let textColorName = fontTextStyle[ConfigurationKey.textColor.rawValue] as? String {
@@ -113,6 +112,14 @@ private extension FontTextStyleParser {
         if let backgroundColorName = fontTextStyle[ConfigurationKey.backgroundColor.rawValue] as? String {
             backgroundColor = colorEntries[backgroundColorName]?.uiColor ?? TypographyColor(string: backgroundColorName)?.uiColor
         }
+        var lineSpacing: CGFloat?
+        if let styleLineSpacing = fontTextStyle[ConfigurationKey.lineSpacing.rawValue] as? Float {
+            lineSpacing = CGFloat(styleLineSpacing)
+        }
+        var letterSpacing: CGFloat?
+        if let styleLetterSpacing = fontTextStyle[ConfigurationKey.letterSpacing.rawValue] as? Float {
+            letterSpacing = CGFloat(styleLetterSpacing)
+        }
         var letterCase: LetterCase?
         if let letterCaseName = fontTextStyle[ConfigurationKey.letterCase.rawValue] as? String {
             letterCase = LetterCase(rawValue: letterCaseName)
@@ -125,7 +132,8 @@ private extension FontTextStyleParser {
                           maximumPointSize: maxPointSize, minimumPointSize: minPointSize, scalingMode: scalingMode,
                           textColor: textColor, disabledTextColor: disabledTextColor,
                           highlightedTextColor: highlightedTextColor, selectedTextColor: selectedTextColor,
-                          tintColor: tintColor, backgroundColor: backgroundColor, lineSpacing: lineSpacing)
+                          tintColor: tintColor, backgroundColor: backgroundColor, lineSpacing: lineSpacing,
+                          letterSpacing: letterSpacing)
     }
     
     /// Extends the original Typography style with another style, replacing properties of the

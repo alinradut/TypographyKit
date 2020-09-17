@@ -114,12 +114,12 @@ extension TypographyKitElement {
                 in range: NSRange, and typography: Typography) {
         update(attributedString: attributedString, with: attrs, in: range,
                typographyFont: typography.font(), typographyTextColor: typography.textColor,
-               typograhyLineSpacing: typography.lineSpacing)
+               typograhyLineSpacing: typography.lineSpacing, typographyLetterSpacing: typography.letterSpacing)
     }
     
     func update(attributedString: NSMutableAttributedString, with attrs: [NSAttributedString.Key: Any],
                 in range: NSRange, typographyFont: UIFont?, typographyTextColor: UIColor?,
-                typograhyLineSpacing: Float?) {
+                typograhyLineSpacing: CGFloat?, typographyLetterSpacing: CGFloat?) {
         let fontAttribute = attrs[.font] as? UIFont
         if let font = fontAttribute ?? typographyFont {
             let fontSize = typographyFont?.pointSize ?? font.pointSize
@@ -134,10 +134,16 @@ extension TypographyKitElement {
             attributedString.addAttribute(.foregroundColor, value: textColor, range: range)
         }
         let paragraphStyleAttribute = attrs[.paragraphStyle] as? NSParagraphStyle
-        if let lineSpacing = typograhyLineSpacing {
-            let style = (paragraphStyleAttribute?.mutableCopy() as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
-            style.lineSpacing = CGFloat(lineSpacing)
+        if let lineSpacing = paragraphStyleAttribute?.lineSpacing ?? typograhyLineSpacing {
+            let style =
+                (paragraphStyleAttribute?.mutableCopy() as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+            style.lineSpacing = lineSpacing
             attributedString.addAttribute(.paragraphStyle, value: style, range: range)
+        }
+        let letterSpacingAttribute = attrs[.kern] as? CGFloat
+        if let letterSpacing = letterSpacingAttribute ?? typographyLetterSpacing {
+            attributedString.removeAttribute(.kern, range: range)
+            attributedString.addAttribute(.kern, value: letterSpacing, range: range)
         }
     }
     
