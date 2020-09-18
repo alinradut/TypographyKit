@@ -9,6 +9,7 @@
 import UIKit
 
 public struct Typography {
+    
     public let name: String
     public let fontName: String?
     public let maximumPointSize: Float?
@@ -24,6 +25,10 @@ public struct Typography {
     public var backgroundColor: UIColor?
     public var lineSpacing: CGFloat?
     public var letterSpacing: CGFloat?
+    
+    public var requiresAttributedString: Bool {
+        return lineSpacing != nil || letterSpacing != nil
+    }
     
     private let textStyle: UIFont.TextStyle
     private static let contentSizeCategoryMap: [UIContentSizeCategory: Float] = [
