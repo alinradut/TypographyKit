@@ -77,23 +77,6 @@ extension UIButton {
             objc_setAssociatedObject(self, &TypographyKitPropertyAdditionsKey.typography,
                                      newValue, .OBJC_ASSOCIATION_RETAIN)
             addObserver()
-            
-            if newValue.requiresAttributedString {
-                if attributedTitle(for: .normal) == nil, let text = title(for: .normal) {
-                    setAttributedTitle(NSAttributedString(string: text), for: .normal)
-                }
-                let mutableString = NSMutableAttributedString(attributedString: attributedTitle(for: .normal)!)
-                let textRange = NSRange(location: 0, length: attributedTitle(for: .normal)!.string.count)
-                mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
-                    update(attributedString: mutableString, with: value, in: range, and: newValue)
-                })
-                setAttributedTitle(mutableString, for: .normal)
-                
-                if let backgroundColor = newValue.backgroundColor {
-                    self.backgroundColor = backgroundColor
-                }
-            }
-            
             guard !isAttributed() else {
                 return
             }

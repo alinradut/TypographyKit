@@ -21,8 +21,8 @@ class UIKitViewController: UIViewController {
         view.backgroundColor = .background
         let buttonText = attributedStringButton.titleLabel?.attributedText
         attributedStringButton.attributedText(buttonText, style: .paragraph)
-//        let labelText = attributedStringLabel.attributedText
-//        attributedStringLabel.attributedText(labelText, style: .paragraph)
+        let labelText = attributedStringLabel.attributedText
+        attributedStringLabel.attributedText(labelText, style: .paragraph)
     }
 
 }

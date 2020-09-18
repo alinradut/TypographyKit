@@ -40,7 +40,8 @@
             "disabled-text-color": "#AAAAAA",
             "highlighted-text-color": "#FF0000",
             "selected-text-color": "#00FF00",
-            "letter-case": "upper",
+            "letter-case": "regular",
+            "background-color": "red",
             "line-spacing" : 10,
             "letter-spacing" : 2
 		},
@@ -51,8 +52,7 @@
         },
         "interactive-text": {
             "extends": "paragraph",
-            "text-color": "interactive",
-            "background-color": "red",
+            "text-color": "interactive"
         }
 	}
 }

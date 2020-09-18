@@ -133,12 +133,12 @@ extension TypographyKitElement {
             attributedString.removeAttribute(.foregroundColor, range: range)
             attributedString.addAttribute(.foregroundColor, value: textColor, range: range)
         }
-        if let lineSpacing = typograhyLineSpacing {
-            let paragraphStyleAttribute =
-                (attrs[.paragraphStyle] as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle
-                ?? NSMutableParagraphStyle()
-            paragraphStyleAttribute.lineSpacing = lineSpacing
-            attributedString.addAttribute(.paragraphStyle, value: paragraphStyleAttribute, range: range)
+        let paragraphStyleAttribute = attrs[.paragraphStyle] as? NSParagraphStyle
+        if let lineSpacing = paragraphStyleAttribute?.lineSpacing ?? typograhyLineSpacing {
+            let style =
+                (paragraphStyleAttribute?.mutableCopy() as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+            style.lineSpacing = lineSpacing
+            attributedString.addAttribute(.paragraphStyle, value: style, range: range)
         }
         let letterSpacingAttribute = attrs[.kern] as? CGFloat
         if let letterSpacing = letterSpacingAttribute ?? typographyLetterSpacing {
