@@ -61,8 +61,8 @@ extension UILabel {
             addObserver()
             
             if newValue.requiresAttributedString {
-                if attributedText == nil, let text = text {
-                    attributedText = NSAttributedString(string: text)
+                if attributedText == nil {
+                    attributedText = NSAttributedString(string: text ?? "")
                 }
                 let mutableString = NSMutableAttributedString(attributedString: attributedText!)
                 let textRange = NSRange(location: 0, length: attributedText!.string.count)

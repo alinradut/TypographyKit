@@ -79,8 +79,8 @@ extension UIButton {
             addObserver()
             
             if newValue.requiresAttributedString {
-                if attributedTitle(for: .normal) == nil, let text = title(for: .normal) {
-                    setAttributedTitle(NSAttributedString(string: text), for: .normal)
+                if attributedTitle(for: .normal) == nil {
+                    setAttributedTitle(NSAttributedString(string: title(for: .normal) ?? ""), for: .normal)
                 }
                 let mutableString = NSMutableAttributedString(attributedString: attributedTitle(for: .normal)!)
                 let textRange = NSRange(location: 0, length: attributedTitle(for: .normal)!.string.count)
