@@ -151,12 +151,14 @@ private extension FontTextStyleParser {
         let newTintColor = modified.tintColor ?? original.tintColor
         let newBackgroundColor = modified.backgroundColor ?? original.backgroundColor
         let newLineSpacing = modified.lineSpacing ?? original.lineSpacing
+        let newLetterSpacing = modified.letterSpacing ?? original.letterSpacing
         let newScalingMode = modified.scalingMode ?? original.scalingMode
         return Typography(name: modified.name, fontName: newFace, fontSize: newSize, letterCase: newCase,
                           maximumPointSize: newMaxSize, minimumPointSize: newMinSize,
                           scalingMode: newScalingMode, textColor: newColor, disabledTextColor: newDisabledColor,
                           highlightedTextColor: newHighlightedColor, selectedTextColor: newSelectedColor,
-                          tintColor: newTintColor, backgroundColor: newBackgroundColor, lineSpacing: newLineSpacing)
+                          tintColor: newTintColor, backgroundColor: newBackgroundColor,
+                          lineSpacing: newLineSpacing, letterSpacing: newLetterSpacing)
     }
     
 }

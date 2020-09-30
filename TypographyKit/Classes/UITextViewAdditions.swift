@@ -72,6 +72,7 @@ extension UITextView {
                 if let backgroundColor = newValue.backgroundColor {
                     self.backgroundColor = backgroundColor
                 }
+                return
             }
             
             guard !isAttributed() else {
