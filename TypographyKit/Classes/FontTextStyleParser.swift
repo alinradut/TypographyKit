@@ -120,6 +120,17 @@ private extension FontTextStyleParser {
         if let styleLetterSpacing = fontTextStyle[ConfigurationKey.letterSpacing.rawValue] as? Float {
             letterSpacing = CGFloat(styleLetterSpacing)
         }
+        var textAlignment: NSTextAlignment?
+        if let styleTextAlignment = fontTextStyle[ConfigurationKey.textAlignment.rawValue] as? String {
+            let textAlignments: [String: NSTextAlignment] = [
+                "center": .center,
+                "left": .left,
+                "right": .right,
+                "justified": .justified,
+                "natural": .natural
+            ]
+            textAlignment = textAlignments[styleTextAlignment]
+        }
         var letterCase: LetterCase?
         if let letterCaseName = fontTextStyle[ConfigurationKey.letterCase.rawValue] as? String {
             letterCase = LetterCase(rawValue: letterCaseName)
@@ -133,7 +144,7 @@ private extension FontTextStyleParser {
                           textColor: textColor, disabledTextColor: disabledTextColor,
                           highlightedTextColor: highlightedTextColor, selectedTextColor: selectedTextColor,
                           tintColor: tintColor, backgroundColor: backgroundColor, lineSpacing: lineSpacing,
-                          letterSpacing: letterSpacing)
+                          letterSpacing: letterSpacing, textAlignment: textAlignment)
     }
     
     /// Extends the original Typography style with another style, replacing properties of the
@@ -152,13 +163,14 @@ private extension FontTextStyleParser {
         let newBackgroundColor = modified.backgroundColor ?? original.backgroundColor
         let newLineSpacing = modified.lineSpacing ?? original.lineSpacing
         let newLetterSpacing = modified.letterSpacing ?? original.letterSpacing
+        let newTextAlignment = modified.textAlignment ?? original.textAlignment
         let newScalingMode = modified.scalingMode ?? original.scalingMode
         return Typography(name: modified.name, fontName: newFace, fontSize: newSize, letterCase: newCase,
                           maximumPointSize: newMaxSize, minimumPointSize: newMinSize,
                           scalingMode: newScalingMode, textColor: newColor, disabledTextColor: newDisabledColor,
                           highlightedTextColor: newHighlightedColor, selectedTextColor: newSelectedColor,
                           tintColor: newTintColor, backgroundColor: newBackgroundColor,
-                          lineSpacing: newLineSpacing, letterSpacing: newLetterSpacing)
+                          lineSpacing: newLineSpacing, letterSpacing: newLetterSpacing, textAlignment: newTextAlignment)
     }
     
 }

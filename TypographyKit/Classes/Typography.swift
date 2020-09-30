@@ -25,9 +25,10 @@ public struct Typography {
     public var backgroundColor: UIColor?
     public var lineSpacing: CGFloat?
     public var letterSpacing: CGFloat?
+    public var textAlignment: NSTextAlignment?
     
     public var requiresAttributedString: Bool {
-        return lineSpacing != nil || letterSpacing != nil
+        return lineSpacing != nil || letterSpacing != nil || textAlignment != nil
     }
     
     private let textStyle: UIFont.TextStyle
@@ -83,6 +84,7 @@ public struct Typography {
         self.backgroundColor = typographyStyle.backgroundColor
         self.lineSpacing = typographyStyle.lineSpacing
         self.letterSpacing = typographyStyle.letterSpacing
+        self.textAlignment = typographyStyle.textAlignment
         self.textStyle = textStyle
     }
     
@@ -92,7 +94,8 @@ public struct Typography {
                 textColor: UIColor? = nil, disabledTextColor: UIColor? = nil,
                 highlightedTextColor: UIColor? = nil, selectedTextColor: UIColor? = nil,
                 tintColor: UIColor? = nil, backgroundColor: UIColor? = nil,
-                lineSpacing: CGFloat? = nil, letterSpacing: CGFloat? = nil) {
+                lineSpacing: CGFloat? = nil, letterSpacing: CGFloat? = nil,
+                textAlignment: NSTextAlignment? = nil) {
         self.name = name
         self.fontName = fontName
         self.maximumPointSize = maximumPointSize
@@ -108,6 +111,7 @@ public struct Typography {
         self.backgroundColor = backgroundColor
         self.lineSpacing = lineSpacing
         self.letterSpacing = letterSpacing
+        self.textAlignment = textAlignment
         self.textStyle = UIFont.TextStyle(rawValue: name)
     }
     

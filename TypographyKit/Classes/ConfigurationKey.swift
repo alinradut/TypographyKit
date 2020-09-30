@@ -22,4 +22,5 @@ enum ConfigurationKey: String {
     case backgroundColor = "background-color"
     case lineSpacing = "line-spacing"
     case letterSpacing = "letter-spacing"
+    case textAlignment = "text-alignment"
 }

@@ -42,7 +42,8 @@
             "selected-text-color": "#00FF00",
             "letter-case": "regular",
             "line-spacing" : 10,
-            "letter-spacing" : 2
+            "letter-spacing" : 2,
+            "text-alignment" : "right"
 		},
         "example": {
             "font-name": "System-Bold",

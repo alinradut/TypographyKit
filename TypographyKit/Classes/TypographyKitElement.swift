@@ -114,13 +114,16 @@ extension TypographyKitElement {
                 in range: NSRange, and typography: Typography) {
         update(attributedString: attributedString, with: attrs, in: range,
                typographyFont: typography.font(), typographyTextColor: typography.textColor,
-               typograhyLineSpacing: typography.lineSpacing, typographyLetterSpacing: typography.letterSpacing)
+               typographyLineSpacing: typography.lineSpacing, typographyLetterSpacing: typography.letterSpacing,
+               typographyTextAlignment: typography.textAlignment)
     }
     
     func update(attributedString: NSMutableAttributedString, with attrs: [NSAttributedString.Key: Any],
                 in range: NSRange, typographyFont: UIFont?, typographyTextColor: UIColor?,
-                typograhyLineSpacing: CGFloat?, typographyLetterSpacing: CGFloat?) {
+                typographyLineSpacing: CGFloat?, typographyLetterSpacing: CGFloat?,
+                typographyTextAlignment: NSTextAlignment?) {
         let fontAttribute = attrs[.font] as? UIFont
+        
         if let font = fontAttribute ?? typographyFont {
             let fontSize = typographyFont?.pointSize ?? font.pointSize
             let fontWithSize = font.withSize(fontSize)
@@ -133,18 +136,26 @@ extension TypographyKitElement {
             attributedString.removeAttribute(.foregroundColor, range: range)
             attributedString.addAttribute(.foregroundColor, value: textColor, range: range)
         }
-        if let lineSpacing = typograhyLineSpacing {
-            let paragraphStyleAttribute =
-                (attrs[.paragraphStyle] as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle
-                ?? NSMutableParagraphStyle()
-            paragraphStyleAttribute.lineSpacing = lineSpacing
-            attributedString.addAttribute(.paragraphStyle, value: paragraphStyleAttribute, range: range)
-        }
         let letterSpacingAttribute = attrs[.kern] as? CGFloat
         if let letterSpacing = letterSpacingAttribute ?? typographyLetterSpacing {
             attributedString.removeAttribute(.kern, range: range)
             attributedString.addAttribute(.kern, value: letterSpacing, range: range)
         }
+
+        guard typographyTextAlignment != nil || typographyLineSpacing != nil else {
+            return
+        }
+        
+        let paragraphStyleAttribute =
+            (attrs[.paragraphStyle] as? NSParagraphStyle)?.mutableCopy() as? NSMutableParagraphStyle
+            ?? NSMutableParagraphStyle()
+        if let textAlignment = typographyTextAlignment {
+            paragraphStyleAttribute.alignment = textAlignment
+        }
+        if let lineSpacing = typographyLineSpacing {
+            paragraphStyleAttribute.lineSpacing = lineSpacing
+        }
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyleAttribute, range: range)
     }
     
 }
