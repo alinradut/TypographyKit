@@ -57,6 +57,23 @@ extension UITextField {
             objc_setAssociatedObject(self, &TypographyKitPropertyAdditionsKey.typography,
                                      newValue, .OBJC_ASSOCIATION_RETAIN)
             addObserver()
+            
+            if newValue.requiresAttributedString {
+                if attributedText == nil, let text = text {
+                    attributedText = NSAttributedString(string: text)
+                }
+                let mutableString = NSMutableAttributedString(attributedString: attributedText!)
+                let textRange = NSRange(location: 0, length: attributedText!.string.count)
+                mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
+                    update(attributedString: mutableString, with: value, in: range, and: newValue)
+                })
+                self.attributedText = mutableString
+                
+                if let backgroundColor = newValue.backgroundColor {
+                    self.backgroundColor = backgroundColor
+                }
+            }
+                        
             guard !isAttributed() else {
                 return
             }
