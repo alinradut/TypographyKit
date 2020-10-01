@@ -79,6 +79,12 @@ extension UIButton {
             addObserver()
             
             if newValue.requiresAttributedString {
+                var newValue = newValue
+                
+                if newValue.textAlignment == nil, let textAlignment = self.titleLabel?.textAlignment {
+                    newValue.textAlignment = textAlignment
+                }
+                
                 if attributedTitle(for: .normal) == nil {
                     setAttributedTitle(NSAttributedString(string: title(for: .normal) ?? ""), for: .normal)
                 }
@@ -121,6 +127,9 @@ extension UIButton {
             }
             if let letterCase = newValue.letterCase {
                 self.letterCase = letterCase
+            }
+            if let textAlignment = newValue.textAlignment {
+                self.titleLabel?.textAlignment = textAlignment
             }
         }
     }

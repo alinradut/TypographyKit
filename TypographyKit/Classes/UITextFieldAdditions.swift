@@ -62,6 +62,13 @@ extension UITextField {
                 if attributedText == nil {
                     attributedText = NSAttributedString(string: text ?? "")
                 }
+                
+                var newValue = newValue
+                
+                if newValue.textAlignment == nil {
+                    newValue.textAlignment = textAlignment
+                }
+                
                 let mutableString = NSMutableAttributedString(attributedString: attributedText!)
                 let textRange = NSRange(location: 0, length: attributedText!.string.count)
                 mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
@@ -89,6 +96,9 @@ extension UITextField {
             }
             if let letterCase = newValue.letterCase {
                 self.letterCase = letterCase
+            }
+            if let textAlignment = newValue.textAlignment {
+                self.textAlignment = textAlignment
             }
         }
     }
