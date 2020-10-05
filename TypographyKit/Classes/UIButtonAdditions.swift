@@ -93,7 +93,9 @@ extension UIButton {
                 mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
                     update(attributedString: mutableString, with: value, in: range, and: newValue)
                 })
-                setAttributedTitle(mutableString, for: .normal)
+                
+                let defaultColor = defaultTextColor(in: mutableString)
+                setAttributedTitle(replaceTextColor(defaultColor, with: typography.textColor, in: mutableString), for: .normal)
                 
                 if let backgroundColor = newValue.backgroundColor {
                     self.backgroundColor = backgroundColor

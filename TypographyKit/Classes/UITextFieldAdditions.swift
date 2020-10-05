@@ -74,8 +74,10 @@ extension UITextField {
                 mutableString.enumerateAttributes(in: textRange, options: [], using: { value, range, _ in
                     update(attributedString: mutableString, with: value, in: range, and: newValue)
                 })
-                self.attributedText = mutableString
                 
+                let defaultColor = defaultTextColor(in: mutableString)
+                self.attributedText = replaceTextColor(defaultColor, with: typography.textColor, in: mutableString)
+
                 if let backgroundColor = newValue.backgroundColor {
                     self.backgroundColor = backgroundColor
                 }
