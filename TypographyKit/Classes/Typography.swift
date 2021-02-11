@@ -28,7 +28,7 @@ public struct Typography {
     public var textAlignment: NSTextAlignment?
     
     public var requiresAttributedString: Bool {
-        return lineSpacing != nil || letterSpacing != nil
+        return (lineSpacing != nil && lineSpacing != 0) || letterSpacing != nil
     }
     
     private let textStyle: UIFont.TextStyle
